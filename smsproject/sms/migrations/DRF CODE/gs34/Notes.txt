@@ -1,0 +1,12 @@
+1.pip install django-filter
+
+2.REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS':['django_filters.rest_framework.DjangoFilterBackend']
+}
+
+3. The second line code is added in settings.py in order to get global filters for all the views.
+   also add this line in the views to filter based on any fields
+   filterset_fields = ['city']
+
+4. Now if you want filter locally then comment the 2 line code and add 
+   

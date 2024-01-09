@@ -1,0 +1,64 @@
+1. pip install djangorestframework-simplejwt
+
+2. default validity access token = 5 minute and refresh token = 24 hours 
+
+3. For requesting token:
+
+http POST http://127.0.0.1:8000/gettoken/ username="user1" password="geekyshows"
+
+4. For verifying token(within 5 minutes):
+
+http POST http://127.0.0.1:8000/verifytoken/ token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAyMzgxOTYwLCJpYXQiOjE3MDIzODE2NjAsImp0aSI6Ijg3MDRkYWU3NzZjMzQ1MjM5YjhjOTMyODdjNjk0MGU4IiwidXNlcl9pZCI6Mn0.bwQXKmeRiZ2CP1tzQTCnD6LlUhzVT_sG-tdvt3rXPW0"
+
+5. To generate access token from refresh token (when access token validity(5 min) is expired):To refresh the Token:
+
+http POST http://127.0.0.1:8000/refreshtoken/ refresh="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcwMjQ2ODA2MCwiaWF0IjoxNzAyMzgxNjYwLCJqdGkiOiIzOWM5NTNhZjdlYzE0Yzk4OGYyMWNhOTRmYjc3M2Q0MiIsInVzZXJfaWQiOjJ9.E8zheKsMCAMEN5c-hZCsxG3O9AZwH1xlGLPCv1XQrc8"
+
+6. How to do get request in api using this token:
+
+http http://127.0.0.1:8000/studentapi/ 'Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6Ikp
+XVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAyMzg0Njg5LCJpYXQiOjE3MDIzODE2NjAsImp0aSI6IjU0Y2I5MGIxNzNmNTQ4NzQ
+4YjQ5ODE5MTEwOGJjYTBkIiwidXNlcl9pZCI6Mn0.8XaCSVUAT6L9E0BEM_W47oYjHidlb8mnZo-zvfy_9Js'
+
+7. POST request
+
+http -f POST http://127.0.0.1:8000/studentapi/ name=Raj roll=108 city=Bokaro 'Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAyMzg1MTM2LCJpYXQiOjE3MDIzODE2NjAsImp0aSI6ImI0ZGY5ZmZhN2EzZTQyMzVhMjBkY2EwNWJkNjA0NjhiIiwidXNlcl9pZCI6Mn0.gRHrFj4WB7Ed9n1VGuJrcABfgl4AG5DaEySsoa_Cbfw'
+
+8. PUT request
+
+http PUT http://127.0.0.1:8000/studentapi/3/ name=Kunal roll=104 city=Dumka 'Authorization:B
+earer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAyMzg1NzAzLCJpYXQiOjE3MDIzOD
+E2NjAsImp0aSI6IjVjZWJmZWVkZGNkZTQyOTRiNjg3MjIzOTY0NThlZDNhIiwidXNlcl9pZCI6Mn0.tSXA1o-VUVLR6Q_sofwo6k_KciMHrwh2zBu
+RBufgaUI'
+
+9. Delete request
+
+http DELETE http://127.0.0.1:8000/studentapi/3/ 'Authorization:Bearer eyJhbGciOiJIUzI1NiIsIn
+R5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAyMzg1NzAzLCJpYXQiOjE3MDIzODE2NjAsImp0aSI6IjVjZWJmZWVkZG
+NkZTQyOTRiNjg3MjIzOTY0NThlZDNhIiwidXNlcl9pZCI6Mn0.tSXA1o-VUVLR6Q_sofwo6k_KciMHrwh2zBuRBufgaUI'
+
+
+10. If you want to increase access token validity then write below part in settings.py.
+
+SIMPLE_JWT = {
+'ACCESS_TOKEN_LIFETIME':timedelta(minutes=10)
+}
+
+before using this you must install timedelta in top part of settings.py
+
+from datetime import timedelta
+
+Similarly you can increase Refresh token validity from default(24 hours) to any time
+
+SIMPLE_JWT = {
+'ACCESS_TOKEN_LIFETIME':timedelta(minutes=10),
+'REFRESH_TOKEN_LIFETIME':timedelta(days=2),
+'ROTATE_REFRESH_TOKENS':True,
+}
+
+Now what does 'ROTATE_REFRESH_TOKENS':True will do:
+when we generally refresh the token we will get new access token by default, but when we make this true and after refreshing we will get
+new access token as well as new refresh token. now this refresh token starts again
+
+
+
