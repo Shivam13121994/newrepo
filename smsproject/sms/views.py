@@ -35,8 +35,8 @@ class SMSModelViewSet(viewsets.ModelViewSet):
             print(validtil)
 
 
-            url = "http://smsjust.com/sms/user/urlsms.php?username=tridentindia&pass=tridentindia@1&senderid=TGROUP&message=VEHICLE IS CONFIRMED BY STORE TEAM KINDLY COLLECT YOUR GATE PASS FROM PARKING OFFICE REGARDS,TRIDENT GROUP&dest_mobileno="+ Mobile_Number +"&msgtype=TXT&response=Y"
-
+            url = "http://smsjust.com/sms/user/urlsms.php?username=tridentindia&pass=tridentindia@1&senderid=TGROUP&message=Dear User,Your Login Code is "+ otp +".Regards,Trident Group&dest_mobileno="+ Mobile_Number +"&msgtype=TXT&response=Y"
+            
             payload = "<?xml version=\"1.0\"?>\r\n<message-submit-request>\r\n<username>tridentindia</username>\r\n<password>tridentindia@1</password>\r\n<sender-id>TGROUP</sender-id>\r\n<MType>UNI</MType>\r\n<message-text>\r\n<text>Test</text>\r\n<to>9878998937</to>\r\n</message-text>\r\n</message-submit-request>"
             headers = {
             'Content-Type': 'application/x-www-form-urlencoded'
